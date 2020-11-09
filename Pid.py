@@ -60,10 +60,12 @@ def timerCallBack(event):
         msg.linear.x = control1
         
         '''
-        state = 'state1'
+        
         
         position.x=2.683991
-     
+        state = 'state1'
+        
+        
     if state == 'state1':
         yaw = getAngle(odom)
         setpoint2 = -90
