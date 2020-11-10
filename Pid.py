@@ -45,6 +45,10 @@ def scanCallBack(msg):
 def timerCallBack(event):
     erro1=0
     I1=0
+    I2=0
+    I3=0
+    erro2=0
+    erro3=0
     state = 'initial'
     msg = Twist()
     if state == 'initial':
@@ -71,7 +75,7 @@ def timerCallBack(event):
         state = 'state1'
         
         
-    '''if state == 'state1':
+    if state == 'state1':
         yaw = getAngle(odom)
         setpoint2 = -90
         error2 = (setpoint2 - yaw)
@@ -82,9 +86,10 @@ def timerCallBack(event):
             else:
                 error2 -= 360
         P2 = kp2*error2
-        I2 = ki2*error2
-        D2 = kd2*error2
-        control2 = P2+I2+D2        
+        I2 = ki2*error2 + I2 #ki1*error1
+        D2 = kd2*(error2 - erro2)
+        control2 = P2+I2+D2
+        erro2 = error2      
         msg.angular.z = control2
         print (state)
         state = 'state2'
@@ -99,9 +104,11 @@ def timerCallBack(event):
             error3 = -(setpoint3 - read)
         
             P3 = kp3*error3
-            I3 = ki3*error3
-            D3 = kd3*error3
+            I3 = ki3*error3 + I3 #ki1*error1
+            D3 = kd3*(error3 - erro3)
             control3 = P3+I3+D3
+            erro3 = error3
+                
             if control3 > 1:
                 control3 = 1
             elif control3 < -1:
@@ -112,7 +119,7 @@ def timerCallBack(event):
         print (state)
         msg.linear.x = control3
         state = 'initial'
-  '''  
+  
     pub.publish(msg)
     
 
