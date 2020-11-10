@@ -63,7 +63,7 @@ def timerCallBack(event):
         
         print(state)
         msg.linear.x = 1
-        if position.x < 2.683991:
+        if position.x > 2.683991:
             msg.linear.x = 0
             state = 'state1'
         
