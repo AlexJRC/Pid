@@ -77,7 +77,7 @@ def timerCallBack(event):
         
     if state == 'state1':
         yaw = getAngle(odom)
-        setpoint2 = -90
+        setpoint2 = 90
         error2 = (setpoint2 - yaw)
     
         if abs(error2) > 180:
