@@ -54,10 +54,10 @@ def timerCallBack(event):
         error1 = dist
         
         P1 = kp1*error1
-        I1 = ki1*error1
-        D1 = kd1*error1
+        I1 = 0 #ki1*error1
+        D1 = 0 # kd1*error1
         control1 = P1+I1+D1
-        msg.linear.x = control1
+        
         
         
         
