@@ -70,7 +70,7 @@ def timerCallBack(event):
             control1 = 1
         elif control1 < -1:
             control1 = -1
-        
+        print(state)
         msg.linear.x = control1
         state = 'state1'
         
