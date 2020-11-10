@@ -43,7 +43,8 @@ def scanCallBack(msg):
 
 # TIMER - Control Loop ----------------------------------------------
 def timerCallBack(event):
-    
+    erro1=0
+    I1=0
     state = 'initial'
     msg = Twist()
     if state == 'initial':
@@ -54,10 +55,10 @@ def timerCallBack(event):
         error1 = dist
         
         P1 = kp1*error1
-        I1 = 0 #ki1*error1
-        D1 = 0 # kd1*error1
+        I1 = ki1*error1 + I1 #ki1*error1
+        D1 = kd1*(error1 - erro1)
         control1 = P1+I1+D1
-        
+        erro1 = error1
         
         
         
