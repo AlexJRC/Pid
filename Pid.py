@@ -7,15 +7,15 @@ import math
 
 
 kp1 = 1
-kp2 = 1
+kp2 = 0.01
 kp3 = 1
 
-ki1 = 2
-ki2 = 2
-ki3 = 2
+ki1 = 0.1
+ki2 = 0.0001
+ki3 = 0.01
 
 kd1 = 1
-kd2 = 1
+kd2 = 0.01
 kd3 = 1
 
 odom = Odometry()
