@@ -66,7 +66,7 @@ def timerCallBack(event):
         state = 'state1'
         
         
-    if state == 'state1':
+    '''if state == 'state1':
         yaw = getAngle(odom)
         setpoint2 = -90
         error2 = (setpoint2 - yaw)
@@ -107,7 +107,7 @@ def timerCallBack(event):
         print (state)
         msg.linear.x = control3
         state = 'initial'
-    
+  '''  
     pub.publish(msg)
     
 
