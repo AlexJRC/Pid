@@ -10,7 +10,7 @@ kp1 = 1
 kp2 = 0.01
 kp3 = 1
 
-ki1 = 0.5
+ki1 = 1
 ki2 = 0.0001
 ki3 = 0.01
 
@@ -49,8 +49,9 @@ def timerCallBack(event):
     I3=0
     erro2=0
     erro3=0
-    state = 'initial'
+    state = 'state1'
     msg = Twist()
+    '''
     if state == 'initial':
         setpoint1 = 2.683991025         #,1.887759912) talvez seta um pouco pra tras de jeito
         
@@ -74,26 +75,32 @@ def timerCallBack(event):
         msg.linear.x = control1
         state = 'state1'
         
-        
+    '''    
     if state == 'state1':
         yaw = getAngle(odom)
-        setpoint2 = 90
-        error2 = (setpoint2 - yaw)
+        scan_len = len(scan.ranges)
+        if scan_len > 0:
+            point = min (scan.ranges[scan_len-10 : scan_len+10]) 
+            #interpolando
+            setpoint2 = 200*((point - scan.ranges[0])/(scan.ranges[scan_len-1] - scan.ranges[0])) - 100
+            error2 = (setpoint2 - yaw)
     
-        if abs(error2) > 180:
-            if setpoint2 < 0:
-                error2 += 360 
-            else:
-                error2 -= 360
-        P2 = kp2*error2
-        I2 = ki2*error2 + I2 #ki1*error1
-        D2 = kd2*(error2 - erro2)
-        control2 = P2+I2+D2
-        erro2 = error2      
+            if abs(error2) > 180:
+                if setpoint2 < 0:
+                    error2 += 360 
+                else:
+                    error2 -= 360
+            P2 = kp2*error2
+            I2 = ki2*error2
+            D2 = kd2*error2
+            control2 = P2+I2+D2        
+        
+        else:
+            control2 = 0
         msg.angular.z = control2
-        print (state)
+        
         state = 'state2'
-            
+                    
     if state == 'state2':
         setpoint3 = 0.5
     
