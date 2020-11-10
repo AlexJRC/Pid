@@ -47,10 +47,10 @@ def timerCallBack(event):
     state = 'initial'
     msg = Twist()
     if state == 'initial':
-        '''setpoint1 = 2.683991025         #,1.887759912) talvez seta um pouco pra tras de jeito
-        '''
+        setpoint1 = 2.683991025         #,1.887759912) talvez seta um pouco pra tras de jeito
+        
         position = odom.pose.pose.position
-        '''dist = setpoint1 - position.x #math.sqrt((setpoint[0] - position.x)**2 + (setpoint[1] - position.y) **2)
+        dist = setpoint1 - position.x #math.sqrt((setpoint[0] - position.x)**2 + (setpoint[1] - position.y) **2)
         error1 = dist
         
         P1 = kp1*error1
@@ -59,13 +59,15 @@ def timerCallBack(event):
         control1 = P1+I1+D1
         msg.linear.x = control1
         
-        '''
         
-        print(state)
-        msg.linear.x = 1
-        if position.x > 2.683991:
-            msg.linear.x = 0
-            state = 'state1'
+        
+        if control1>1:
+            control1 = 1
+        elif control1 < -1:
+            control1 = -1
+        
+        msg.linear.x = control1
+        state = 'state1'
         
         
     '''if state == 'state1':
